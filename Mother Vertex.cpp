@@ -1,0 +1,58 @@
+
+class Solution 
+{
+    public:
+    //Function to find a Mother Vertex in the Graph.
+	void dfs(int u, vector<int>adj[], vector<bool>&vis)
+	{
+	    //marking current vertex as visited.
+		vis[u] = true;
+		
+		//iterating over the adjacent vertices.
+		for(auto v: adj[u])
+		{
+		    //if any vertex is not visited, we call dfs function recursively.
+			if(!vis[v])
+				dfs(v, adj, vis);
+		}
+	}
+	
+	//Function to find a Mother Vertex in the Graph.
+	int findMotherVertex(int V, vector<int>adj[])
+	{
+	    //boolean list to mark the visited nodes and initially all are
+        //initialized as not visited.
+		vector<bool>vis(V, false);
+		
+		//variable to store last finished vertex (or mother vertex).
+		int v;
+		
+		//iterating over all the vertices
+		for(int i = 0; i < V; i++)
+		{
+		    //if current vertex is not visited, we call the dfs 
+		    //function and then update the variable v.
+			if(!vis[i]){
+				dfs(i, adj, vis);
+				v = i;
+			}
+		}
+		
+		//we reset all the vertices as not visited.
+		vis.assign(V, false);
+		
+		//calling the dfs function to do DFS beginning from v to check
+        //if all vertices are reachable from it or not.
+		dfs(v, adj, vis);
+		
+		//iterating on boolean list and returning -1 if
+		//any vertex is not visited.
+		for(auto i: vis)
+			if(!i)
+				return -1;
+				
+		//returning mother vertex.
+		return v;
+	}
+
+};

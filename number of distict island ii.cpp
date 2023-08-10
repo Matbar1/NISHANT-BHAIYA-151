@@ -1,4 +1,7 @@
-    int numDistinctIslands(std::vector<std::vector<int>>& grid) {
+class solution
+{
+    public:
+  int numDistinctIslands(std::vector<std::vector<int>>& grid) {
         if (grid.empty() || grid[0].empty()) {
             return 0;
         }
